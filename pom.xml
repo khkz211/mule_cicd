@@ -16,6 +16,15 @@
 		<app.runtime>4.4.0</app.runtime>
 		<mule.maven.plugin.version>3.5.4</mule.maven.plugin.version>
 	</properties>
+	
+	<!--<distributionManagement>
+  	  <repository>
+    	    <id>MuleRepository</id>
+    	    <name>organization Repository</name>
+    	    <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/28e5449c-3249-46b1-9410-71d373651fc4/maven</url>
+    	    <layout>default</layout>
+  	  </repository>
+	</distributionManagement> -->
 
 	<build>
 		<plugins>
@@ -32,21 +41,39 @@
 				<configuration>
                             <cloudHubDeployment>
                                 <muleVersion>${app.runtime}</muleVersion>
-                                <!-- <username>${anypoint.username}</username>
-                                <password>${anypoint.password}</password> -->
+                                <!--<username>${anypoint.username}</username>
+                                <password>${anypoint.password}</password>-->
 								<connectedAppClientId>6ffa802e5b24492fb91a65004148ed49</connectedAppClientId>
 								<connectedAppClientSecret>7c760108542b4FDc8a67d5A34942c97b</connectedAppClientSecret>
 								<connectedAppGrantType>client_credentials</connectedAppGrantType>
-								<applicationName>mule-cicd-poc</applicationName>                
+								<!--<server>MuleRepository</server>-->
+								<applicationName>cxm-mule-cicd-poc</applicationName>                
                                 <region>us-east-2</region>
                                 <environment>Sandbox</environment>
                                 <uri>https://anypoint.mulesoft.com</uri>
-                                <workerType>SMALL</workerType>
+                                <workerType>Micro</workerType>
                                 <workers>1</workers>
 								<objectStoreV2>true</objectStoreV2>
                             </cloudHubDeployment>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <id>deploy</id>
+                                <phase>deploy</phase>
+                                <!-- None, because the main pom cannot be deployed -->
+                                <goals>
+                                </goals>
+                            </execution>
+                        </executions>
 			</plugin>
+			<plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <version>3.0.0-M1</version>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
 		</plugins>
 	</build>
 
@@ -73,6 +100,12 @@
 			<layout>default</layout>
 		</repository>
 		<repository>
+			<id>anypoint-exchange-v2</id>
+			<name>Anypoint Exchange</name>
+			<url>https://maven.anypoint.mulesoft.com/api/v2/maven</url>
+			<layout>default</layout>
+		</repository>
+		<repository>
 			<id>mulesoft-releases</id>
 			<name>MuleSoft Releases Repository</name>
 			<url>https://repository.mulesoft.org/releases/</url>
@@ -81,6 +114,10 @@
 	</repositories>
 
 	<pluginRepositories>
+		<pluginRepository>
+            <id>mule-public</id>
+            <url>https://repository.mulesoft.org/nexus/content/repositories/releases</url>
+        </pluginRepository>
 		<pluginRepository>
 			<id>mulesoft-releases</id>
 			<name>MuleSoft Releases Repository</name>
