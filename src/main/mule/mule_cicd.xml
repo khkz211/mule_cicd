@@ -9,6 +9,6 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	</http:listener-config>
 	<flow name="mule_cicdFlow" doc:id="764da4ee-99aa-4e1a-93fc-87856b4846d4" >
 		<http:listener doc:name="Listener" doc:id="e3535f5f-a5c5-4fd3-8848-dcc8de3e7f16" config-ref="HTTP_Listener_config" path="/cicd"/>
-		<set-payload value='{"Message": "Success"}' doc:name="Set Payload" doc:id="bd07b42b-b822-4e6f-b06f-fcf3b472f1d9" mimeType="application/json"/>
+		<set-payload value='{"Message": "Message Received Successfully"}' doc:name="Set Payload" doc:id="bd07b42b-b822-4e6f-b06f-fcf3b472f1d9" mimeType="application/json"/>
 	</flow>
 </mule>
